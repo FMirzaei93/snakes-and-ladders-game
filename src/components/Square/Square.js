@@ -1,17 +1,8 @@
 import snake from "../../images/snake.png";
 import ladder from "../../images/ladder.png";
-import "./square.scss";
+import "./Square.scss";
 
 const Square = ({ squareNumber, foundSnake, foundLadder }) => {
-  // function backgroundColor() {
-  //   let backgroundColor;
-  //   if (foundSnake !== undefined) backgroundColor = "red";
-  //   else if (foundLadder !== undefined) backgroundColor = "green";
-  //   else backgroundColor = "wheat";
-
-  //   return backgroundColor;
-  // }
-
   function backgroundImage() {
     let backgroundImage;
     if (foundSnake !== undefined) backgroundImage = `url("${snake}")`;
