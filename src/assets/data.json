@@ -1,605 +1,70 @@
 {
-  "squares": [
+  "snakes": [
     {
-      "squareNumber": 1,
-      "snakeStatus": false,
-      "ladderStatus": true,
-      "dest": 38
-    },
-    {
-      "squareNumber": 2,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 3,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 4,
-      "snakeStatus": false,
-      "ladderStatus": true,
-      "dest": 14
-    },
-    {
-      "squareNumber": 5,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 6,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 7,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 8,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 9,
-      "snakeStatus": false,
-      "ladderStatus": true,
-      "dest": 31
-    },
-    {
-      "squareNumber": 10,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 11,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 12,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 13,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 14,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 15,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 16,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 17,
-      "snakeStatus": true,
-      "ladderStatus": false,
+      "source": 17,
       "dest": 7
     },
     {
-      "squareNumber": 18,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 19,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 20,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 21,
-      "snakeStatus": false,
-      "ladderStatus": true,
-      "dest": 42
-    },
-    {
-      "squareNumber": 22,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 23,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 24,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 25,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 26,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 27,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 28,
-      "snakeStatus": false,
-      "ladderStatus": true,
-      "dest": 84
-    },
-    {
-      "squareNumber": 29,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 30,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 31,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 32,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 33,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 34,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 35,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 36,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 37,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 38,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 39,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 40,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 41,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-
-    {
-      "squareNumber": 42,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 43,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 44,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 45,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 46,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 47,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 48,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 49,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 50,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 51,
-      "snakeStatus": false,
-      "ladderStatus": true,
-      "dest": 67
-    },
-    {
-      "squareNumber": 52,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 53,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 54,
-      "snakeStatus": true,
-      "ladderStatus": false,
+      "source": 54,
       "dest": 34
     },
     {
-      "squareNumber": 55,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 56,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 57,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 58,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 59,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 60,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 61,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 62,
-      "snakeStatus": true,
-      "ladderStatus": false,
+      "source": 62,
       "dest": 19
     },
     {
-      "squareNumber": 63,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 64,
-      "snakeStatus": true,
-      "ladderStatus": false,
+      "source": 64,
       "dest": 60
     },
     {
-      "squareNumber": 65,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 66,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 67,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 68,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 69,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 70,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 71,
-      "snakeStatus": false,
-      "ladderStatus": true,
-      "dest": 91
-    },
-    {
-      "squareNumber": 72,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 73,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 74,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 75,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 76,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 77,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 78,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 79,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 80,
-      "snakeStatus": false,
-      "ladderStatus": true,
-      "dest": 99
-    },
-    {
-      "squareNumber": 81,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 82,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 83,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 84,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 85,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 86,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 87,
-      "snakeStatus": true,
-      "ladderStatus": false,
+      "source": 87,
       "dest": 24
     },
     {
-      "squareNumber": 88,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 89,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 90,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 91,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 92,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 93,
-      "snakeStatus": true,
-      "ladderStatus": false,
+      "source": 93,
       "dest": 73
     },
     {
-      "squareNumber": 94,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 95,
-      "snakeStatus": true,
-      "ladderStatus": false,
+      "source": 95,
       "dest": 75
     },
     {
-      "squareNumber": 96,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 97,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
-    },
-    {
-      "squareNumber": 98,
-      "snakeStatus": true,
-      "ladderStatus": false,
+      "source": 98,
       "dest": 79
+    }
+  ],
+  "ladders": [
+    {
+      "source": 1,
+      "dest": 38
     },
     {
-      "squareNumber": 99,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
+      "source": 4,
+      "dest": 14
     },
     {
-      "squareNumber": 100,
-      "snakeStatus": false,
-      "ladderStatus": false,
-      "dest": 0
+      "source": 9,
+      "dest": 31
+    },
+    {
+      "source": 21,
+      "dest": 42
+    },
+    {
+      "source": 28,
+      "dest": 84
+    },
+    {
+      "source": 51,
+      "dest": 67
+    },
+    {
+      "source": 71,
+      "dest": 91
+    },
+    {
+      "source": 80,
+      "dest": 99
     }
   ]
 }
