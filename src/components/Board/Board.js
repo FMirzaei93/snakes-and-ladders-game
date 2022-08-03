@@ -1,4 +1,4 @@
-import "./board.scss";
+import "./Board.scss";
 import data from "../../assets/data.json";
 import Square from "../Square/Square";
 const snakes = data.snakes;
@@ -36,8 +36,12 @@ for (let i = 1; i <= 100; i++) {
   );
 }
 
-function App() {
-  return <div className='square-container'>{squaresArray}</div>;
-}
+const Board = () => {
+  return (
+    <div className='main-container'>
+      <div className='square-container'>{squaresArray}</div>
+    </div>
+  );
+};
 
-export default App;
+export default Board;

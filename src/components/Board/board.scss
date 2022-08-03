@@ -1,13 +1,20 @@
+div.main-container {
+  width: 80%;
+  height: 80%;
+}
+
 div.square-container {
-  display: grid;
-  grid-template: repeat(10, 1fr) / repeat(10, 1fr);
-  grid-auto-flow: dense;
-  gap: 5px;
+  // display: grid;
+  // grid-template: repeat(10, 1fr) / repeat(10, 1fr);
+  // gap: 1px;
+  display: flex;
+  flex-wrap: wrap-reverse;
 }
 
 // div.square-container {
 //   display: flex;
-//   flex-direction: column-reverse;
+//   margin: 1rem;
+//   flex-direction: row-reverse;
 //   width: auto !important;
 //   & > :nth-child(odd) {
 //     display: flex;
@@ -17,4 +24,4 @@ div.square-container {
 //     display: flex;
 //     flex-direction: row-reverse;
 //   }
-// }
+//}
