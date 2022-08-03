@@ -1,0 +1,20 @@
+div.square-container {
+  display: grid;
+  grid-template: repeat(10, 1fr) / repeat(10, 1fr);
+  grid-auto-flow: dense;
+  gap: 5px;
+}
+
+// div.square-container {
+//   display: flex;
+//   flex-direction: column-reverse;
+//   width: auto !important;
+//   & > :nth-child(odd) {
+//     display: flex;
+//     flex-direction: row;
+//   }
+//   & > :nth-child(even) {
+//     display: flex;
+//     flex-direction: row-reverse;
+//   }
+// }
