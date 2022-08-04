@@ -44,6 +44,7 @@ const Board = () => {
         foundLadder={foundLadder(i)}
         player1Pos={player1Pos}
         player2Pos={player2Pos}
+        turn={turn}
       ></Square>
     );
   }
@@ -68,13 +69,21 @@ const Board = () => {
     <div className='main-container'>
       <div className='players-container'>
         <div className={turn === 1 ? "bold" : ""}>
-          <img className={bulletClassName(1)} src={redBullet} />
+          <img
+            className={bulletClassName(1)}
+            src={redBullet}
+            alt='red bullet'
+          />
 
           <span>Player1: </span>
           <span>{player1Pos === 0 ? "has not entered" : player1Pos}</span>
         </div>
         <div className={turn === 2 ? "bold" : ""}>
-          <img className={bulletClassName(2)} src={blueBullet} />
+          <img
+            className={bulletClassName(2)}
+            src={blueBullet}
+            alt='blue bullet'
+          />
           <span>Player2: </span>
           <span>{player2Pos === 0 ? "has not entered" : player2Pos}</span>
         </div>
