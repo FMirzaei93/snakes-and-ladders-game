@@ -18,8 +18,15 @@ const reducer = (state, action) => {
         dice: createRandomNumber(),
       };
 
-    case "change-turn":
-      return { ...state, turn: changeTurn(state.turn, state.playersNum) };
+    case "updatePlayer":
+      return {
+        ...state,
+        player1Pos:
+          state.turn === 1 ? state.player1Pos + state.dice : state.player1Pos,
+        player2Pos:
+          state.turn === 2 ? state.player2Pos + state.dice : state.player2Pos,
+        turn: changeTurn(state.turn, state.playersNum),
+      };
 
     default:
       return state;

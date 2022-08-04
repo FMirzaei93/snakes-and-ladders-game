@@ -47,14 +47,18 @@ const Board = () => {
     dispatch({ type: "roll" });
   }
 
+  React.useEffect(() => {
+    dispatch({ type: "updatePlayer" });
+  }, [dice]);
+
   return (
     <div className='main-container'>
       <div className='players-container'>
-        <div>
+        <div className={turn === 1 ? "bold" : ""}>
           <span>Player1: </span>
           <span>{player1Pos === 0 ? "has not entered" : player1Pos}</span>
         </div>
-        <div>
+        <div className={turn === 2 ? "bold" : ""}>
           <span>Player2: </span>
           <span>{player2Pos === 0 ? "has not entered" : player2Pos}</span>
         </div>
@@ -63,7 +67,7 @@ const Board = () => {
       <button className='roll' onClick={rollClick}>
         Roll
       </button>
-      <span>{dice}</span>
+      <span>Dice number: {dice}</span>
     </div>
   );
 };
