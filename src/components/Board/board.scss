@@ -7,25 +7,43 @@ div.main-container {
 }
 
 div.square-container {
-  // display: grid;
-  // grid-template: repeat(10, 1fr) / repeat(10, 1fr);
-  // gap: 1px;
   display: flex;
   flex-wrap: wrap-reverse;
 }
 
 button.roll {
   width: 10rem;
-  padding: 1rem;
+  padding: 0.75rem 1rem;
   margin-top: 1rem;
+  background-color: orange;
+  border-radius: 0.5rem;
+  border: none;
 }
 
 div.bold {
   font-weight: bold;
-  background-color: rgb(252, 186, 64);
+}
+
+img.bullet {
+  width: 0.7rem;
+  height: 0.7rem;
+  margin-right: 0.5rem;
+}
+
+.visible {
+  visibility: visible;
+}
+
+.hidden {
+  visibility: hidden;
 }
 
 // div.square-container {
+
+// display: grid;
+// grid-template: repeat(10, 1fr) / repeat(10, 1fr);
+// gap: 1px;
+
 //   display: flex;
 //   margin: 1rem;
 //   flex-direction: row-reverse;
