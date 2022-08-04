@@ -20,7 +20,7 @@ const Square = ({ squareNumber, foundSnake, foundLadder }) => {
 
   return (
     <div className='square' style={squareStyle}>
-      <h1>{squareNumber}</h1>
+      <p className='square-number'>{squareNumber}</p>
     </div>
   );
 };

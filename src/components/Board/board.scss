@@ -1,6 +1,9 @@
 div.main-container {
   width: 80%;
   height: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 div.square-container {
@@ -9,6 +12,12 @@ div.square-container {
   // gap: 1px;
   display: flex;
   flex-wrap: wrap-reverse;
+}
+
+button.roll {
+  width: 10rem;
+  padding: 1rem;
+  margin-top: 1rem;
 }
 
 // div.square-container {

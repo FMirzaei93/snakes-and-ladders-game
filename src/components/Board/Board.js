@@ -1,6 +1,9 @@
 import "./Board.scss";
 import data from "../../assets/data.json";
 import Square from "../Square/Square";
+import reducer, { initialStates } from "../../reducers";
+import React from "react";
+
 const snakes = data.snakes;
 const ladders = data.ladders;
 
@@ -37,9 +40,30 @@ for (let i = 1; i <= 100; i++) {
 }
 
 const Board = () => {
+  const [{ dice, winner, gameOver, turn, player1Pos, player2Pos }, dispatch] =
+    React.useReducer(reducer, initialStates);
+
+  function rollClick() {
+    dispatch({ type: "roll" });
+  }
+
   return (
     <div className='main-container'>
+      <div className='players-container'>
+        <div>
+          <span>Player1: </span>
+          <span>{player1Pos === 0 ? "has not entered" : player1Pos}</span>
+        </div>
+        <div>
+          <span>Player2: </span>
+          <span>{player2Pos === 0 ? "has not entered" : player2Pos}</span>
+        </div>
+      </div>
       <div className='square-container'>{squaresArray}</div>
+      <button className='roll' onClick={rollClick}>
+        Roll
+      </button>
+      <span>{dice}</span>
     </div>
   );
 };
