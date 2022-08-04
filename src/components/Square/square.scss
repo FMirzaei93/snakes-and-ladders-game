@@ -3,7 +3,8 @@ div.square {
   height: 70px;
   background-color: rgb(255, 250, 243);
   border: 1px solid lightgray;
-  padding: 0.2rem;
+  padding: 0.7rem;
+  background-origin: content-box;
 }
 
 p.square-number {
