@@ -1,5 +1,5 @@
-import snake from "../../images/snake.png";
-import ladder from "../../images/ladder.png";
+import snake from "../../assets/images/snake.png";
+import ladder from "../../assets/images/ladder.png";
 import "./Square.scss";
 
 const Square = ({ squareNumber, foundSnake, foundLadder }) => {
