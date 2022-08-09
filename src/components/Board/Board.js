@@ -1,5 +1,4 @@
 import "./Board.scss";
-import data from "../../assets/data.json";
 import Square from "../Square/Square";
 import reducer, { initialStates } from "../../reducers";
 import React from "react";
@@ -10,7 +9,16 @@ import { foundSnake, foundLadder } from "../../helper/utils";
 
 const Board = () => {
   const [
-    { die, winner, gameOver, turn, player1Pos, player2Pos, checkDone },
+    {
+      die,
+      winner,
+      gameOver,
+      turn,
+      player1Pos,
+      player2Pos,
+      p1StartPermission,
+      p2StartPermission,
+    },
     dispatch,
   ] = React.useReducer(reducer, initialStates);
 
