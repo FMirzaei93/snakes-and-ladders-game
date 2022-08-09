@@ -12,6 +12,8 @@ export const initialStates = {
   player1Pos: 0,
   player2Pos: 0,
   playersNum: 2,
+  p1StartPermission: false,
+  p2StartPermission: false,
 };
 
 const reducer = (state, action) => {
