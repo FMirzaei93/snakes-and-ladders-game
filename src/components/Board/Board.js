@@ -67,7 +67,7 @@ const Board = () => {
     return currentPlayerPos;
   };
 
-  const resetSnakeAndLadder = () => {
+  const resetSnakeAndLadderStates = () => {
     if (snake) dispatch({ type: "snake", payload: false });
     if (ladder) dispatch({ type: "ladder", payload: false });
   };
@@ -75,32 +75,27 @@ const Board = () => {
   const rollClick = () => {
     let randomNum = createRandomNumber();
     dispatch({ type: "updateDie", payload: randomNum });
+    resetSnakeAndLadderStates();
 
-    resetSnakeAndLadder();
-
-    let playerStartPermission;
-    if (turn === 1) playerStartPermission = p1StartPermission;
-    else playerStartPermission = p2StartPermission;
-
-    if (playerStartPermission) {
-      let newPlayerPos;
-      if (turn === 1) {
-        newPlayerPos = applySnakeOrLadder(player1Pos + randomNum);
-      }
-      if (turn === 2) {
-        newPlayerPos = applySnakeOrLadder(player2Pos + randomNum);
-      }
-
-      dispatch({ type: "roll", payload: newPlayerPos });
-    } else {
-      if (randomNum === 6) {
-        dispatch({ type: "changeStartPermission" });
-        dispatch({ type: "roll", payload: randomNum });
+    let newPlayerPos = 0;
+    const setPlayerNewPos = (playerStartPermission, playerPos) => {
+      if (playerStartPermission) {
+        newPlayerPos = applySnakeOrLadder(playerPos + randomNum);
+        dispatch({ type: "roll", payload: newPlayerPos });
       } else {
-        //the player is not allowed to enter the game, so all we need to do, is to change the turn.
-        dispatch({ type: "changeTurn" });
+        if (randomNum === 6) {
+          dispatch({ type: "givePermission" });
+        }
       }
+    };
+
+    if (turn === 1) {
+      setPlayerNewPos(p1StartPermission, player1Pos);
+    } else if (turn === 2) {
+      setPlayerNewPos(p2StartPermission, player2Pos);
     }
+
+    dispatch({ type: "changeTurn", payload: newPlayerPos });
   };
 
   const playAgain = () => {

@@ -35,10 +35,6 @@
   ],
   "ladders": [
     {
-      "source": 1,
-      "dest": 38
-    },
-    {
       "source": 4,
       "dest": 14
     },

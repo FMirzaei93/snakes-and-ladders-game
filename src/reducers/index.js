@@ -22,11 +22,13 @@ const reducer = (state, action) => {
         die: action.payload,
       };
 
-    case "changeStartPermission":
+    case "givePermission":
       return {
         ...state,
         p1StartPermission: state.turn === 1 ? true : state.p1StartPermission,
         p2StartPermission: state.turn === 2 ? true : state.p2StartPermission,
+        player1Pos: state.turn === 1 ? 1 : state.player1Pos,
+        player2Pos: state.turn === 2 ? 1 : state.player2Pos,
       };
 
     case "roll":
@@ -41,16 +43,15 @@ const reducer = (state, action) => {
           state.turn === 2 && action.payload <= 100
             ? action.payload
             : state.player2Pos,
-        turn:
-          action.payload !== 100
-            ? changeTurn(state.turn, state.playersNum)
-            : state.turn,
       };
 
     case "changeTurn":
       return {
         ...state,
-        turn: changeTurn(state.turn, state.playersNum),
+        turn:
+          action.payload !== 100
+            ? changeTurn(state.turn, state.playersNum)
+            : state.turn,
       };
 
     case "gameOver":
