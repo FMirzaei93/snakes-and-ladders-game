@@ -15,7 +15,6 @@ const Board = () => {
   const [
     {
       die,
-      winner,
       gameOver,
       turn,
       player1Pos,
@@ -26,6 +25,10 @@ const Board = () => {
     dispatch,
   ] = React.useReducer(reducer, initialStates);
 
+  if (!gameOver && (player1Pos === 100 || player2Pos === 100)) {
+    dispatch({ type: "gameOver" });
+  }
+
   const rollClick = () => {
     let randomNum = createRandomNumber();
     dispatch({ type: "updateDie", payload: randomNum });
@@ -34,21 +37,21 @@ const Board = () => {
     if (turn === 1) playerStartPermission = p1StartPermission;
     else playerStartPermission = p2StartPermission;
 
-    console.log(turn + " : " + playerStartPermission);
-
     if (playerStartPermission) {
       dispatch({ type: "roll", payload: randomNum });
     } else {
       if (randomNum === 6) {
-        dispatch({ type: "roll", payload: randomNum });
         dispatch({ type: "changeStartPermission" });
+        dispatch({ type: "roll", payload: randomNum });
       } else {
-        //message;
-        console.log("you are not allowed");
+        //the player is not allowed to enter the game, so all we need to do, is changing the turn.
+        dispatch({ type: "changeTurn" });
       }
     }
+  };
 
-    dispatch({ type: "changeTurn" });
+  const playAgain = () => {
+    dispatch({ type: "initiate" });
   };
 
   // This function will create the appropriate classname for the bullets next to each player's name.
@@ -76,6 +79,10 @@ const Board = () => {
 
   return (
     <div className='main-container'>
+      {gameOver && (
+        <p>Player{turn} you won! Congrats for such a big achievement!</p>
+      )}
+      {gameOver && <button onClick={playAgain}>Play again</button>}
       <div className='players-container'>
         <div className={turn === 1 ? "bold" : ""}>
           <img
@@ -98,10 +105,16 @@ const Board = () => {
         </div>
       </div>
       <div className='square-container'>{squaresArray}</div>
-      <button className='roll' onClick={rollClick}>
+      <button className='roll' onClick={!gameOver ? rollClick : undefined}>
         Roll
       </button>
       <span>Die number: {die}</span>
+      {!p1StartPermission && turn === 1 && (
+        <p>Player1: you have to get a 6 to start the game!</p>
+      )}
+      {!p2StartPermission && turn === 2 && (
+        <p>Player2: you have to get a 6 to start the game!</p>
+      )}
     </div>
   );
 };

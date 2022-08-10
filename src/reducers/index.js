@@ -7,7 +7,6 @@ import {
 
 export const initialStates = {
   die: 0,
-  winner: 0,
   gameOver: false,
   turn: 1,
   player1Pos: 0,
@@ -19,6 +18,7 @@ export const initialStates = {
 
 const reducer = (state, action) => {
   switch (action.type) {
+    //payload: randomNumber
     case "updateDie":
       return {
         ...state,
@@ -34,16 +34,22 @@ const reducer = (state, action) => {
 
     case "roll":
       //payload: randomNumber
+      let newP1Pos = state.player1Pos + action.payload;
+      let newP2Pos = state.player2Pos + action.payload;
       return {
         ...state,
         player1Pos:
-          state.turn === 1
-            ? applySnakeOrLadder(state.player1Pos + action.payload)
+          state.turn === 1 && newP1Pos <= 100
+            ? applySnakeOrLadder(newP1Pos)
             : state.player1Pos,
         player2Pos:
-          state.turn === 2
-            ? applySnakeOrLadder(state.player2Pos + action.payload)
+          state.turn === 2 && newP2Pos <= 100
+            ? applySnakeOrLadder(newP2Pos)
             : state.player2Pos,
+        turn:
+          newP1Pos !== 100 && newP2Pos !== 100
+            ? changeTurn(state.turn, state.playersNum)
+            : state.turn,
       };
 
     case "changeTurn":
@@ -51,6 +57,15 @@ const reducer = (state, action) => {
         ...state,
         turn: changeTurn(state.turn, state.playersNum),
       };
+
+    case "gameOver":
+      return {
+        ...state,
+        gameOver: true,
+      };
+
+    case "initiate":
+      return initialStates;
 
     default:
       return state;
