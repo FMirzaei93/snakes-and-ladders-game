@@ -12,10 +12,9 @@ export const changeTurn = (currentTurn, playersNum) => {
   //1,2,3 ->1
 };
 
-const snakes = data.snakes;
-const ladders = data.ladders;
-
 export const foundSnake = (playerPos) => {
+  const snakes = data.snakes;
+
   let result = undefined;
   for (let i = 0; i < snakes.length; i++) {
     if (snakes[i].source === playerPos) {
@@ -27,6 +26,8 @@ export const foundSnake = (playerPos) => {
 };
 
 export const foundLadder = (playerPos) => {
+  const ladders = data.ladders;
+
   let result = undefined;
   for (let i = 0; i < ladders.length; i++) {
     if (ladders[i].source === playerPos) {
@@ -37,7 +38,7 @@ export const foundLadder = (playerPos) => {
   return result;
 };
 
-export const checkIsSnakeORLadder = (currentPlayerPos) => {
+export const applySnakeOrLadder = (currentPlayerPos) => {
   if (foundSnake(currentPlayerPos) !== undefined) {
     currentPlayerPos = foundSnake(currentPlayerPos).dest;
   } else if (foundLadder(currentPlayerPos) !== undefined) {

@@ -5,7 +5,11 @@ import React from "react";
 import redBullet from "../../assets/images/red-bullet.png";
 import blueBullet from "../../assets/images/blue-bullet.png";
 import classNames from "classnames";
-import { foundSnake, foundLadder } from "../../helper/utils";
+import {
+  foundSnake,
+  foundLadder,
+  createRandomNumber,
+} from "../../helper/rollFunctions";
 
 const Board = () => {
   const [
@@ -22,9 +26,30 @@ const Board = () => {
     dispatch,
   ] = React.useReducer(reducer, initialStates);
 
-  function rollClick() {
-    dispatch({ type: "roll" });
-  }
+  const rollClick = () => {
+    let randomNum = createRandomNumber();
+    dispatch({ type: "updateDie", payload: randomNum });
+
+    let playerStartPermission;
+    if (turn === 1) playerStartPermission = p1StartPermission;
+    else playerStartPermission = p2StartPermission;
+
+    console.log(turn + " : " + playerStartPermission);
+
+    if (playerStartPermission) {
+      dispatch({ type: "roll", payload: randomNum });
+    } else {
+      if (randomNum === 6) {
+        dispatch({ type: "roll", payload: randomNum });
+        dispatch({ type: "changeStartPermission" });
+      } else {
+        //message;
+        console.log("you are not allowed");
+      }
+    }
+
+    dispatch({ type: "changeTurn" });
+  };
 
   // This function will create the appropriate classname for the bullets next to each player's name.
   const bulletClassName = (turnNum) => {
