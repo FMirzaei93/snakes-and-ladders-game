@@ -1,9 +1,4 @@
-import {
-  createRandomNumber,
-  changeTurn,
-  applySnakeOrLadder,
-  checkForStartPermission,
-} from "../helper/rollFunctions";
+import { changeTurn } from "../helper/util";
 
 export const initialStates = {
   die: 0,
@@ -14,6 +9,8 @@ export const initialStates = {
   playersNum: 2,
   p1StartPermission: false,
   p2StartPermission: false,
+  snake: false,
+  ladder: false,
 };
 
 const reducer = (state, action) => {
@@ -33,21 +30,19 @@ const reducer = (state, action) => {
       };
 
     case "roll":
-      //payload: randomNumber
-      let newP1Pos = state.player1Pos + action.payload;
-      let newP2Pos = state.player2Pos + action.payload;
+      //payload: newPlayerPosition
       return {
         ...state,
         player1Pos:
-          state.turn === 1 && newP1Pos <= 100
-            ? applySnakeOrLadder(newP1Pos)
+          state.turn === 1 && action.payload <= 100
+            ? action.payload
             : state.player1Pos,
         player2Pos:
-          state.turn === 2 && newP2Pos <= 100
-            ? applySnakeOrLadder(newP2Pos)
+          state.turn === 2 && action.payload <= 100
+            ? action.payload
             : state.player2Pos,
         turn:
-          newP1Pos !== 100 && newP2Pos !== 100
+          action.payload !== 100
             ? changeTurn(state.turn, state.playersNum)
             : state.turn,
       };
@@ -62,6 +57,16 @@ const reducer = (state, action) => {
       return {
         ...state,
         gameOver: true,
+      };
+    case "snake":
+      return {
+        ...state,
+        snake: action.payload,
+      };
+    case "ladder":
+      return {
+        ...state,
+        ladder: action.payload,
       };
 
     case "initiate":

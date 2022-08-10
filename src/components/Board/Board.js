@@ -6,11 +6,8 @@ import redBullet from "../../assets/images/red-bullet.png";
 import blueBullet from "../../assets/images/blue-bullet.png";
 import classNames from "classnames";
 import Confetti from "react-confetti";
-import {
-  foundSnake,
-  foundLadder,
-  createRandomNumber,
-} from "../../helper/rollFunctions";
+import data from "../../assets/data.json";
+import { createRandomNumber } from "../../helper/util";
 
 const Board = () => {
   const [
@@ -22,6 +19,8 @@ const Board = () => {
       player2Pos,
       p1StartPermission,
       p2StartPermission,
+      snake,
+      ladder,
     },
     dispatch,
   ] = React.useReducer(reducer, initialStates);
@@ -30,16 +29,69 @@ const Board = () => {
     dispatch({ type: "gameOver" });
   }
 
+  const foundSnake = (playerPos) => {
+    const snakes = data.snakes;
+
+    let result = undefined;
+    for (let i = 0; i < snakes.length; i++) {
+      if (snakes[i].source === playerPos) {
+        result = snakes[i];
+        break;
+      }
+    }
+    return result;
+  };
+
+  const foundLadder = (playerPos) => {
+    const ladders = data.ladders;
+
+    let result = undefined;
+    for (let i = 0; i < ladders.length; i++) {
+      if (ladders[i].source === playerPos) {
+        result = ladders[i];
+        break;
+      }
+    }
+    return result;
+  };
+
+  const applySnakeOrLadder = (currentPlayerPos) => {
+    if (foundSnake(currentPlayerPos) !== undefined) {
+      dispatch({ type: "snake", payload: true });
+      currentPlayerPos = foundSnake(currentPlayerPos).dest;
+    } else if (foundLadder(currentPlayerPos) !== undefined) {
+      dispatch({ type: "ladder", payload: true });
+      currentPlayerPos = foundLadder(currentPlayerPos).dest;
+    }
+
+    return currentPlayerPos;
+  };
+
+  const resetSnakeAndLadder = () => {
+    if (snake) dispatch({ type: "snake", payload: false });
+    if (ladder) dispatch({ type: "ladder", payload: false });
+  };
+
   const rollClick = () => {
     let randomNum = createRandomNumber();
     dispatch({ type: "updateDie", payload: randomNum });
+
+    resetSnakeAndLadder();
 
     let playerStartPermission;
     if (turn === 1) playerStartPermission = p1StartPermission;
     else playerStartPermission = p2StartPermission;
 
     if (playerStartPermission) {
-      dispatch({ type: "roll", payload: randomNum });
+      let newPlayerPos;
+      if (turn === 1) {
+        newPlayerPos = applySnakeOrLadder(player1Pos + randomNum);
+      }
+      if (turn === 2) {
+        newPlayerPos = applySnakeOrLadder(player2Pos + randomNum);
+      }
+
+      dispatch({ type: "roll", payload: newPlayerPos });
     } else {
       if (randomNum === 6) {
         dispatch({ type: "changeStartPermission" });
@@ -116,10 +168,17 @@ const Board = () => {
       </button>
       <span>Die number: {die}</span>
       {!p1StartPermission && turn === 1 && (
-        <p>Player1: you have to get a 6 to start the game!</p>
+        <p>Player1: you have to roll a 6 to start the game!</p>
       )}
       {!p2StartPermission && turn === 2 && (
-        <p>Player2: you have to get a 6 to start the game!</p>
+        <p>Player2: you have to roll a 6 to start the game!</p>
+      )}
+
+      {snake && (
+        <p className='snake-ladder-message'>Oh Sorry! That was a snake!🐍</p>
+      )}
+      {ladder && (
+        <p className='snake-ladder-message'>Great! That was a ladder!🪜</p>
       )}
     </div>
   );
