@@ -5,6 +5,7 @@ import React from "react";
 import redBullet from "../../assets/images/red-bullet.png";
 import blueBullet from "../../assets/images/blue-bullet.png";
 import classNames from "classnames";
+import Confetti from "react-confetti";
 import {
   foundSnake,
   foundLadder,
@@ -79,6 +80,9 @@ const Board = () => {
 
   return (
     <div className='main-container'>
+      {gameOver && (
+        <Confetti height={window.innerHeight} width={window.innerWidth} />
+      )}
       {gameOver && (
         <p>Player{turn} you won! Congrats for such a big achievement!</p>
       )}
