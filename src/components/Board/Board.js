@@ -84,7 +84,9 @@ const Board = () => {
         <Confetti height={window.innerHeight} width={window.innerWidth} />
       )}
       {gameOver && (
-        <p>Player{turn} you won! Congrats for such a big achievement!</p>
+        <p className='winning-message'>
+          Player{turn} you won! Congrats for such a big achievement!😁
+        </p>
       )}
       {gameOver && <button onClick={playAgain}>Play again</button>}
       <div className='players-container'>
