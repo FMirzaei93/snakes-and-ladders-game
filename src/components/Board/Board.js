@@ -45,7 +45,7 @@ const Board = () => {
         dispatch({ type: "changeStartPermission" });
         dispatch({ type: "roll", payload: randomNum });
       } else {
-        //the player is not allowed to enter the game, so all we need to do, is changing the turn.
+        //the player is not allowed to enter the game, so all we need to do, is to change the turn.
         dispatch({ type: "changeTurn" });
       }
     }
