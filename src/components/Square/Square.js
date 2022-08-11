@@ -31,11 +31,11 @@ const Square = ({
     <div className='square' style={squareStyle}>
       <p className='square-number'>{squareNumber}</p>
       {squareNumber === player1Pos && (
-        <img src={redBullet} className='player redBullet' />
+        <img src={redBullet} className='player redBullet' alt='player1' />
       )}
 
       {squareNumber === player2Pos && (
-        <img src={blueBullet} className='player blueBullet' />
+        <img src={blueBullet} className='player blueBullet' alt='player2' />
       )}
     </div>
   );
