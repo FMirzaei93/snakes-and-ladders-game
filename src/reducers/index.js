@@ -1,7 +1,7 @@
 import { changeTurn } from "../helper/util";
 
 export const initialStates = {
-  die: 0,
+  die: 1,
   gameOver: false,
   turn: 1,
   player1Pos: 0,
