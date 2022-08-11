@@ -35,17 +35,12 @@ const reducer = (state, action) => {
       //payload: newPlayerPosition
       return {
         ...state,
-        player1Pos:
-          state.turn === 1 && action.payload <= 100
-            ? action.payload
-            : state.player1Pos,
-        player2Pos:
-          state.turn === 2 && action.payload <= 100
-            ? action.payload
-            : state.player2Pos,
+        player1Pos: state.turn === 1 ? action.payload : state.player1Pos,
+        player2Pos: state.turn === 2 ? action.payload : state.player2Pos,
       };
 
     case "changeTurn":
+      //payload: newPlayerPosition
       return {
         ...state,
         turn:
