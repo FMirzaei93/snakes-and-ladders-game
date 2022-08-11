@@ -8,6 +8,33 @@ import classNames from "classnames";
 import Confetti from "react-confetti";
 import data from "../../assets/data.json";
 import { createRandomNumber } from "../../helper/util";
+import Die from "../Die/Die";
+
+const foundSnake = (playerPos) => {
+  const snakes = data.snakes;
+
+  let result = undefined;
+  for (let i = 0; i < snakes.length; i++) {
+    if (snakes[i].source === playerPos) {
+      result = snakes[i];
+      break;
+    }
+  }
+  return result;
+};
+
+const foundLadder = (playerPos) => {
+  const ladders = data.ladders;
+
+  let result = undefined;
+  for (let i = 0; i < ladders.length; i++) {
+    if (ladders[i].source === playerPos) {
+      result = ladders[i];
+      break;
+    }
+  }
+  return result;
+};
 
 const Board = () => {
   const [
@@ -29,33 +56,7 @@ const Board = () => {
     dispatch({ type: "gameOver" });
   }
 
-  const foundSnake = (playerPos) => {
-    const snakes = data.snakes;
-
-    let result = undefined;
-    for (let i = 0; i < snakes.length; i++) {
-      if (snakes[i].source === playerPos) {
-        result = snakes[i];
-        break;
-      }
-    }
-    return result;
-  };
-
-  const foundLadder = (playerPos) => {
-    const ladders = data.ladders;
-
-    let result = undefined;
-    for (let i = 0; i < ladders.length; i++) {
-      if (ladders[i].source === playerPos) {
-        result = ladders[i];
-        break;
-      }
-    }
-    return result;
-  };
-
-  const applySnakeOrLadder = (currentPlayerPos) => {
+  const applySnakeOrLadder = React.useCallback((currentPlayerPos) => {
     if (foundSnake(currentPlayerPos) !== undefined) {
       dispatch({ type: "snake", payload: true });
       currentPlayerPos = foundSnake(currentPlayerPos).dest;
@@ -65,7 +66,7 @@ const Board = () => {
     }
 
     return currentPlayerPos;
-  };
+  }, []);
 
   const resetSnakeAndLadderStates = () => {
     if (snake) dispatch({ type: "snake", payload: false });
@@ -111,6 +112,13 @@ const Board = () => {
     });
   };
 
+  const playerInfoClassName = (turnNum) => {
+    return classNames({
+      playerInfo: true,
+      bold: turn === turnNum,
+    });
+  };
+
   const squaresArray = [];
   for (let i = 1; i <= 100; i++) {
     squaresArray.push(
@@ -126,55 +134,75 @@ const Board = () => {
   }
 
   return (
-    <div className='main-container'>
+    <div className='container'>
       {gameOver && (
         <Confetti height={window.innerHeight} width={window.innerWidth} />
       )}
-      {gameOver && (
-        <p className='winning-message'>
-          Player{turn} you won! Congrats for such a big achievement!😁
-        </p>
-      )}
-      {gameOver && <button onClick={playAgain}>Play again</button>}
-      <div className='players-container'>
-        <div className={turn === 1 ? "bold" : ""}>
-          <img
-            className={bulletClassName(1)}
-            src={redBullet}
-            alt='red bullet'
-          />
 
-          <span>Player1: </span>
-          <span>{player1Pos === 0 ? "has not entered" : player1Pos}</span>
+      <p className='game-name'>Snakes & Ladders</p>
+
+      <p className={gameOver ? "winning-message" : "hidden"}>
+        Player{turn} you won! Congrats for such a big achievement!😁
+      </p>
+
+      <div className='main-content'>
+        <div className='left-content'>
+          <div className='players-container'>
+            <div className={playerInfoClassName(1)}>
+              <img
+                className={bulletClassName(1)}
+                src={redBullet}
+                alt='red bullet'
+              />
+
+              <span>Player1: </span>
+              <span>{player1Pos === 0 ? "has not entered" : player1Pos}</span>
+            </div>
+            <div className={playerInfoClassName(2)}>
+              <img
+                className={bulletClassName(2)}
+                src={blueBullet}
+                alt='blue bullet'
+              />
+              <span>Player2: </span>
+              <span>{player2Pos === 0 ? "has not entered" : player2Pos}</span>
+            </div>
+          </div>
+
+          {!p1StartPermission && turn === 1 && (
+            <p className='permission'>
+              ⚠️ Player1: You have to roll a 6 to start the game!
+            </p>
+          )}
+          {!p2StartPermission && turn === 2 && (
+            <p className='permission'>
+              ⚠️ Player2: You have to roll a 6 to start the game!
+            </p>
+          )}
         </div>
-        <div className={turn === 2 ? "bold" : ""}>
-          <img
-            className={bulletClassName(2)}
-            src={blueBullet}
-            alt='blue bullet'
-          />
-          <span>Player2: </span>
-          <span>{player2Pos === 0 ? "has not entered" : player2Pos}</span>
+
+        <div className='mid-content'>
+          <div className='square-container'>{squaresArray}</div>
+        </div>
+
+        <div className='right-content'>
+          <button
+            className='roll-play'
+            onClick={!gameOver ? rollClick : playAgain}
+          >
+            {!gameOver ? "Roll" : "Play Again"}
+          </button>
+
+          <Die die={die} />
+
+          {snake && (
+            <p className='snake-ladder-message'>Ooh! That was a snake!🐍</p>
+          )}
+          {ladder && (
+            <p className='snake-ladder-message'>Great! That was a ladder!🪜</p>
+          )}
         </div>
       </div>
-      <div className='square-container'>{squaresArray}</div>
-      <button className='roll' onClick={!gameOver ? rollClick : undefined}>
-        Roll
-      </button>
-      <span>Die number: {die}</span>
-      {!p1StartPermission && turn === 1 && (
-        <p>Player1: you have to roll a 6 to start the game!</p>
-      )}
-      {!p2StartPermission && turn === 2 && (
-        <p>Player2: you have to roll a 6 to start the game!</p>
-      )}
-
-      {snake && (
-        <p className='snake-ladder-message'>Oh Sorry! That was a snake!🐍</p>
-      )}
-      {ladder && (
-        <p className='snake-ladder-message'>Great! That was a ladder!🪜</p>
-      )}
     </div>
   );
 };

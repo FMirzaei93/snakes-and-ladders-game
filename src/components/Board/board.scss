@@ -1,23 +1,53 @@
-div.main-container {
-  width: 80%;
-  height: 80%;
+div.container {
+  min-width: 100vw;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
+}
+//-----------------------------------
+
+p.game-name {
+  font-size: 2rem;
+  text-align: center;
+  padding-bottom: 0.8rem;
+  color: rgb(95, 40, 3);
+}
+//-----------------------------------
+
+p.winning-message {
+  font-weight: bold;
+  font-size: 1.3rem;
+  text-align: center;
+  padding-bottom: 0.5rem;
+  color: rgb(195, 58, 8);
 }
 
-div.square-container {
+p.hidden {
+  visibility: hidden;
+  font-size: 1rem;
+  padding-bottom: 0.5rem;
+}
+//-----------------------------------
+
+div.main-content {
   display: flex;
-  flex-wrap: wrap-reverse;
+  width: 100%;
 }
 
-button {
-  width: 10rem;
-  padding: 0.75rem 1rem;
-  margin-top: 1rem;
-  background-color: orange;
-  border-radius: 0.5rem;
-  border: none;
+//-------Left Content
+
+div.left-content {
+  width: 25%;
+  padding-left: 2rem;
+}
+div.players-container {
+  width: max-content;
+  font-size: 1.25rem;
+}
+
+div.players-container .playerInfo {
+  margin-bottom: 1rem;
+  color: rgb(95, 40, 3);
 }
 
 div.bold {
@@ -30,22 +60,64 @@ img.bullet {
   margin-right: 0.5rem;
 }
 
-.visible {
+img.visible {
   visibility: visible;
 }
 
-.hidden {
+img.hidden {
   visibility: hidden;
 }
-
-p.winning-message {
+p.permission {
+  margin-top: 5rem;
+  color: rgb(165, 69, 5);
+  font-size: 1rem;
   font-weight: bold;
-  font-size: 1.5rem;
 }
+
+//------- Middle Content
+
+div.mid-content {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+}
+
+div.square-container {
+  // display: flex;
+  // flex-wrap: wrap-reverse;
+
+  display: grid;
+  width: min-content;
+  margin: auto;
+  grid-template: repeat(10, 1fr) / repeat(10, 1fr);
+}
+
+//------- Right Content
+
+div.right-content {
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+button.roll-play {
+  width: 10rem;
+  padding: 1rem 1rem;
+  margin-top: 1rem;
+  background-color: orange;
+  border-radius: 0.5rem;
+  border: 0.07rem solid rgb(95, 40, 3);
+  cursor: pointer;
+}
+
 p.snake-ladder-message {
   font-weight: bold;
-  font-size: 1.25rem;
+  font-size: 1.4rem;
+  margin-top: 8rem;
 }
+
+//-----------------------------------
 
 // div.square-container {
 
