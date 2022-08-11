@@ -3,8 +3,6 @@ import ladder from "../../assets/images/ladder.png";
 import "./Square.scss";
 import redBullet from "../../assets/images/red-bullet.png";
 import blueBullet from "../../assets/images/blue-bullet.png";
-//red: #B70000
-//blue: #002897
 
 const Square = ({
   squareNumber,
@@ -13,6 +11,7 @@ const Square = ({
   player1Pos,
   player2Pos,
 }) => {
+  // Specifies what the background of each square should be; snake, ladder or neither.
   const backgroundImage = () => {
     let backgroundImage;
     if (foundSnake !== undefined) backgroundImage = `url("${snake}")`;
@@ -25,6 +24,7 @@ const Square = ({
     backgroundPosition: "center",
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
+    backgroundColor: squareNumber === 100 && "rgba(255, 60, 0, 0.611)",
   };
 
   return (
