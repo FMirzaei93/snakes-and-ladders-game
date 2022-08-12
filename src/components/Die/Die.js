@@ -8,7 +8,6 @@ import React from "react";
 import "./Die.scss";
 
 const Die = ({ die }) => {
-  console.log("dieee", die);
   const dieImg = React.useMemo(() => {
     switch (die) {
       case 1:
