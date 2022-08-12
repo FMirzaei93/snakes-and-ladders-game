@@ -11,7 +11,7 @@ const Square = ({
   player1Pos,
   player2Pos,
 }) => {
-  // Specifies what the background of each square should be; snake, ladder or neither.
+  // This function determines what the background-image of each square should be; snake, ladder or neither.
   const backgroundImage = () => {
     let backgroundImage;
     if (foundSnake !== undefined) backgroundImage = `url("${snake}")`;

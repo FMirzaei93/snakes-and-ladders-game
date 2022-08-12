@@ -3,8 +3,9 @@ div.square {
   height: 4rem;
   background-color: rgb(255, 250, 243);
   border: 1px solid lightgray;
-  padding: 0.6rem;
+  padding: 0.2rem;
   background-origin: content-box;
+  // This property makes the padding be applied to the background-image too.
   position: relative;
 }
 
