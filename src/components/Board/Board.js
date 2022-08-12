@@ -61,7 +61,7 @@ const Board = () => {
 
   // This function checks if the current player's position is considered a snake/ladder, if so, the position will be updated with the defined destination of that snake/ladder,
   //Then, the snake/ladder state gets updated.
-  const applySnakeOrLadder = React.useCallback((currentPlayerPos) => {
+  const applySnakeOrLadder = (currentPlayerPos) => {
     if (foundSnake(currentPlayerPos) !== undefined) {
       dispatch({ type: "snake", payload: true });
       currentPlayerPos = foundSnake(currentPlayerPos).dest;
@@ -71,7 +71,7 @@ const Board = () => {
     }
 
     return currentPlayerPos;
-  }, []);
+  };
 
   // This function simply reset the state of snake and ladder to false after each roll.
   const resetSnakeAndLadderStates = () => {
@@ -137,15 +137,32 @@ const Board = () => {
     });
   };
 
-  // An array of 100 squares that specifies if each square is a snake or ladder, and if any player is located there.
+  // This function will create a spiral array of 100 elements. (Thanks to my friend Bence🐍)
+  const createSpiralArray = () => {
+    const flatten = new Array(10).fill(null).flatMap((_, i) => {
+      const subArr = new Array(10).fill(null).map((_, j) => {
+        if (i === 0) return j + 1;
+        return i * 10 + j + 1;
+      });
+
+      return i % 2 === 0 ? subArr : subArr.reverse();
+    });
+
+    return flatten;
+  };
+
+  // An array of 100 squares that determines if each square is a snake or ladder, and if any player is located there.
   const squaresArray = [];
-  for (let i = 1; i <= 100; i++) {
+  const spiralArray = createSpiralArray();
+
+  for (let i = 0; i < 100; i++) {
+    let j = spiralArray[i];
     squaresArray.push(
       <Square
-        key={i}
-        squareNumber={i}
-        foundSnake={foundSnake(i)}
-        foundLadder={foundLadder(i)}
+        key={j}
+        squareNumber={j}
+        foundSnake={foundSnake(j)}
+        foundLadder={foundLadder(j)}
         player1Pos={player1Pos}
         player2Pos={player2Pos}
       ></Square>
