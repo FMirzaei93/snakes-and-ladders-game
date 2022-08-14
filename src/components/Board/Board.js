@@ -141,14 +141,12 @@ const Board = () => {
   const createSpiralArray = () => {
     const flatten = new Array(10).fill(null).flatMap((_, i) => {
       const subArr = new Array(10).fill(null).map((_, j) => {
-        if (i === 0) return j + 1;
         return i * 10 + j + 1;
       });
-
-      return i % 2 === 0 ? subArr : subArr.reverse();
+      return i % 2 === 0 ? subArr.reverse() : subArr;
     });
 
-    return flatten;
+    return flatten.reverse();
   };
 
   // An array of 100 squares that determines if each square is a snake or ladder, and if any player is located there.
