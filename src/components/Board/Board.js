@@ -239,7 +239,7 @@ const Board = () => {
             {!gameOver ? "Roll" : "Play Again"}
           </button>
 
-          <p className='turn'>Player{turn}, Let's go ✌️</p>
+          {!gameOver && <p className='turn'>Player{turn}, Let's go ✌️</p>}
 
           <Die die={die} />
 
