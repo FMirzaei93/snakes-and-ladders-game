@@ -23,7 +23,8 @@ The first player that reaches the highest space on the board, 100, wins the game
 #### You can see the live version of the project [here](https://snakes-and-ladders-fmirzaei93.vercel.app)
 
 
-#### 🌸 I'd like to thank my friend [Bence](https://github.com/fekete965) ( @fekete965 ) for his persistent help and technical support. I appreciate his unbelievable dedication.
+#### 🌸 I'd like to thank my friend [Bence](https://github.com/fekete965) for his persistent help and technical support. I appreciate his unbelievable dedication.
+#### 🌼 I'd also like to thank my friend [Kamran](https://github.com/comendrun) who made me do this project. I'm so grateful to him for his suggestion.
 
 
 ## Initial Script
