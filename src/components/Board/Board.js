@@ -230,7 +230,7 @@ const Board = () => {
           <Die die={die} />
 
           {snake && (
-            <p className='snake-ladder-message'>Ooh! That was a snake!🐍</p>
+            <p className='snake-ladder-message'>Oops! That was a snake!🐍</p>
           )}
           {ladder && (
             <p className='snake-ladder-message'>Great! That was a ladder!🪜</p>
