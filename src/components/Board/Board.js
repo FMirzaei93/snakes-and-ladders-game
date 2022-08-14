@@ -198,7 +198,9 @@ const Board = () => {
               />
 
               <span>Player1: </span>
-              <span>{player1Pos === 0 ? "has not entered" : player1Pos}</span>
+              <span>
+                {player1Pos === 0 ? "has not entered the game" : player1Pos}
+              </span>
             </div>
             <div className={playerInfoClassName(2)}>
               <img
@@ -207,7 +209,9 @@ const Board = () => {
                 alt='blue bullet'
               />
               <span>Player2: </span>
-              <span>{player2Pos === 0 ? "has not entered" : player2Pos}</span>
+              <span>
+                {player2Pos === 0 ? "has not entered the game" : player2Pos}
+              </span>
             </div>
           </div>
 
