@@ -48,7 +48,9 @@ const Board = () => {
       player2Pos,
       p1StartPermission,
       p2StartPermission,
+      isSnake,
       snake,
+      isLadder,
       ladder,
     },
     dispatch,
@@ -63,10 +65,16 @@ const Board = () => {
   //Then, the snake/ladder state gets updated.
   const applySnakeOrLadder = (currentPlayerPos) => {
     if (foundSnake(currentPlayerPos) !== undefined) {
-      dispatch({ type: "snake", payload: true });
+      dispatch({
+        type: "snake",
+        payload: { isSnake: true, snake: foundSnake(currentPlayerPos) },
+      });
       currentPlayerPos = foundSnake(currentPlayerPos).dest;
     } else if (foundLadder(currentPlayerPos) !== undefined) {
-      dispatch({ type: "ladder", payload: true });
+      dispatch({
+        type: "ladder",
+        payload: { isLadder: true, ladder: foundLadder(currentPlayerPos) },
+      });
       currentPlayerPos = foundLadder(currentPlayerPos).dest;
     }
 
@@ -75,8 +83,8 @@ const Board = () => {
 
   // This function simply reset the state of snake and ladder to false after each roll.
   const resetSnakeAndLadderStates = () => {
-    if (snake) dispatch({ type: "snake", payload: false });
-    if (ladder) dispatch({ type: "ladder", payload: false });
+    if (snake) dispatch({ type: "snake", payload: { isSnake: false } });
+    if (ladder) dispatch({ type: "ladder", payload: { isLadder: false } });
   };
 
   // What this function does:
@@ -227,13 +235,27 @@ const Board = () => {
             {!gameOver ? "Roll" : "Play Again"}
           </button>
 
+          <p className='turn'>Player{turn}, Let's go ✌️</p>
+
           <Die die={die} />
 
-          {snake && (
-            <p className='snake-ladder-message'>Oops! That was a snake!🐍</p>
+          {isSnake && (
+            <>
+              <p className='snake-ladder-message'>Oops! That was a snake!🐍</p>
+              <p className='snake-ladder-info'>
+                It took you from {snake.source} to {snake.dest} 😕
+              </p>
+            </>
           )}
-          {ladder && (
-            <p className='snake-ladder-message'>Great! That was a ladder!🪜</p>
+          {isLadder && (
+            <>
+              <p className='snake-ladder-message'>
+                Great! That was a ladder!🪜
+              </p>
+              <p className='snake-ladder-info'>
+                It took you from {ladder.source} to {ladder.dest} 😛
+              </p>
+            </>
           )}
         </div>
       </div>

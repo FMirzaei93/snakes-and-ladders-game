@@ -9,8 +9,10 @@ export const initialStates = {
   playersNum: 2,
   p1StartPermission: false,
   p2StartPermission: false,
-  snake: false,
-  ladder: false,
+  isSnake: false,
+  snake: null,
+  isLadder: false,
+  ladder: null,
 };
 
 const reducer = (state, action) => {
@@ -57,12 +59,14 @@ const reducer = (state, action) => {
     case "snake":
       return {
         ...state,
-        snake: action.payload,
+        isSnake: action.payload.isSnake,
+        snake: action.payload.snake,
       };
     case "ladder":
       return {
         ...state,
-        ladder: action.payload,
+        isLadder: action.payload.isLadder,
+        ladder: action.payload.ladder,
       };
 
     case "initiate":
