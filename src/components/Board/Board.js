@@ -93,7 +93,7 @@ const Board = () => {
   //3. Check if the player is allowed to start the game(if it has thrown a 6?).
   //4. If so, calls the 'applySnakeOrLadder' function to return the new player's position(check if it encounters a snake, ladder of neither)
   //5. If the new player's position =<100 (the position must not exceed 100), it updates the player's state with the new returned value from 'applySnakeOrLadder'.
-  //6. If the player is not allowed, it checks if it just got a 6, and then update the player's permission.
+  //6. If the player is not allowed so far to start the game, it checks if they just got a 6, and then update the player's permission.
   //7. And eventually, it changes the turn.
   const rollClick = () => {
     let randomNum = createRandomNumber();
