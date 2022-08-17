@@ -161,7 +161,7 @@ const Board = () => {
   const squaresArray = [];
   const spiralArray = createSpiralArray();
 
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < spiralArray.length; i++) {
     let j = spiralArray[i];
     squaresArray.push(
       <Square
