@@ -101,7 +101,7 @@ const Board = () => {
     resetSnakeAndLadderStates();
 
     let newPlayerPos = 0;
-    // Inner function to prevent repeating the codes for each player separately.
+    // Inner function to avoid repeating the codes for each player separately.
     const setPlayerNewPos = (playerStartPermission, playerPos) => {
       if (playerStartPermission) {
         newPlayerPos = applySnakeOrLadder(playerPos + randomNum);
