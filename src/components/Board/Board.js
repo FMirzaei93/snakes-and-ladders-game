@@ -52,6 +52,7 @@ const Board = () => {
       snake,
       isLadder,
       ladder,
+      buttonAbility,
     },
     dispatch,
   ] = React.useReducer(reducer, initialStates);
@@ -88,39 +89,54 @@ const Board = () => {
   };
 
   // What this function does:
-  //1. It will generate a random number as the die number and updates the die state.
-  //2. Reset the state of snake and ladder.
-  //3. Check if the player is allowed to start the game(if it has thrown a 6?).
-  //4. If so, calls the 'applySnakeOrLadder' function to return the new player's position(check if it encounters a snake, ladder of neither)
-  //5. If the new player's position =<100 (the position must not exceed 100), it updates the player's state with the new returned value from 'applySnakeOrLadder'.
-  //6. If the player is not allowed so far to start the game, it checks if they just got a 6, and then update the player's permission.
-  //7. And eventually, it changes the turn.
+  //1. Check if the player is allowed to start the game(if it has thrown a 6?).
+  //2. If so, if the player position + random number <=100 (the max number on the board), it sets an Interval to increase the player's position one by one(to demonstrate the player moving on the board).
+  //3. It sets a Timeout to terminate this process by clearing the interval, and checking if the new player's position is a snake or ladder. (by calling the 'applySnakeOrLadder' function)
+  //4. Then updates the player's position and changes the turn.
+  //5. If the player is not allowed so far to start the game, first, it checks if they just got a 6, and then update the player's permission; and then it changes the turn anyway.
+
+  const setPlayerNewPos = (playerStartPermission, playerPos, randomNum) => {
+    let newPlayerPos = playerPos + randomNum;
+
+    if (playerStartPermission) {
+      if (newPlayerPos <= 100) {
+        dispatch({ type: "switchButtonAbility" });
+
+        // repeat with the interval of 1 second
+        let timerId = setInterval(() => {
+          dispatch({ type: "increment" });
+        }, 500);
+        setTimeout(() => {
+          // set this Timeout to terminate the process of increasing the player's position state after a specific time.
+          clearInterval(timerId);
+
+          let appliedSnakeOrLadderOnPos = applySnakeOrLadder(newPlayerPos);
+          setTimeout(() => {
+            // Set this Timeout to touch the last square before applying snake or ladder on the current position.
+            dispatch({ type: "roll", payload: appliedSnakeOrLadderOnPos });
+            dispatch({ type: "changeTurn", payload: newPlayerPos });
+            dispatch({ type: "switchButtonAbility" });
+          }, 500);
+        }, randomNum * 500);
+      }
+    } else {
+      if (randomNum === 6) {
+        dispatch({ type: "givePermission" });
+      }
+      dispatch({ type: "changeTurn", payload: newPlayerPos });
+    }
+  };
+
   const rollClick = () => {
     let randomNum = createRandomNumber();
     dispatch({ type: "updateDie", payload: randomNum });
     resetSnakeAndLadderStates();
 
-    let newPlayerPos = 0;
-    // Inner function to avoid repeating the codes for each player separately.
-    const setPlayerNewPos = (playerStartPermission, playerPos) => {
-      if (playerStartPermission) {
-        newPlayerPos = applySnakeOrLadder(playerPos + randomNum);
-        if (newPlayerPos <= 100)
-          dispatch({ type: "roll", payload: newPlayerPos });
-      } else {
-        if (randomNum === 6) {
-          dispatch({ type: "givePermission" });
-        }
-      }
-    };
-
     if (turn === 1) {
-      setPlayerNewPos(p1StartPermission, player1Pos);
+      setPlayerNewPos(p1StartPermission, player1Pos, randomNum);
     } else if (turn === 2) {
-      setPlayerNewPos(p2StartPermission, player2Pos);
+      setPlayerNewPos(p2StartPermission, player2Pos, randomNum);
     }
-
-    dispatch({ type: "changeTurn", payload: newPlayerPos });
   };
 
   // This function initiates the game by resetting all the states.
@@ -235,6 +251,7 @@ const Board = () => {
           <button
             className='roll-play'
             onClick={!gameOver ? rollClick : playAgain}
+            disabled={buttonAbility ? false : true}
           >
             {!gameOver ? "Roll" : "Play Again"}
           </button>

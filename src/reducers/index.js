@@ -13,6 +13,7 @@ export const initialStates = {
   snake: null,
   isLadder: false,
   ladder: null,
+  buttonAbility: true,
 };
 
 const reducer = (state, action) => {
@@ -39,6 +40,13 @@ const reducer = (state, action) => {
         ...state,
         player1Pos: state.turn === 1 ? action.payload : state.player1Pos,
         player2Pos: state.turn === 2 ? action.payload : state.player2Pos,
+      };
+
+    case "increment":
+      return {
+        ...state,
+        player1Pos: state.turn === 1 ? state.player1Pos + 1 : state.player1Pos,
+        player2Pos: state.turn === 2 ? state.player2Pos + 1 : state.player2Pos,
       };
 
     case "changeTurn":
@@ -71,6 +79,12 @@ const reducer = (state, action) => {
 
     case "initiate":
       return initialStates;
+
+    case "switchButtonAbility":
+      return {
+        ...state,
+        buttonAbility: !state.buttonAbility,
+      };
 
     default:
       return state;
