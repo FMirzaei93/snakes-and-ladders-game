@@ -2,8 +2,8 @@ import snake from "../../assets/images/snake.png";
 import ladder from "../../assets/images/ladder.png";
 import star from "../../assets/images/star.png";
 import "./Square.scss";
-import redBullet from "../../assets/images/red-bullet.png";
-import blueBullet from "../../assets/images/blue-bullet.png";
+import redPiece from "../../assets/images/red-piece.png";
+import bluePiece from "../../assets/images/blue-piece.png";
 
 const Square = ({
   squareNumber,
@@ -33,11 +33,11 @@ const Square = ({
     <div className='square' style={squareStyle}>
       <p className='square-number'>{squareNumber}</p>
       {squareNumber === player1Pos && (
-        <img src={redBullet} className='player redBullet' alt='player1' />
+        <img src={redPiece} className='player redPiece' alt='player1' />
       )}
 
       {squareNumber === player2Pos && (
-        <img src={blueBullet} className='player blueBullet' alt='player2' />
+        <img src={bluePiece} className='player bluePiece' alt='player2' />
       )}
     </div>
   );
