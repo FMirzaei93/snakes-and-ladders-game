@@ -102,18 +102,19 @@ const Board = () => {
       if (newPlayerPos <= 100) {
         dispatch({ type: "switchButtonAbility" });
 
-        // repeat with the interval of 1 second
         let timerId = setInterval(() => {
           dispatch({ type: "increment" });
+          console.log("each interval");
         }, 500);
-        setTimeout(() => {
-          // set this Timeout to terminate the process of increasing the player's position state after a specific time.
-          clearInterval(timerId);
 
-          let appliedSnakeOrLadderOnPos = applySnakeOrLadder(newPlayerPos);
+        setTimeout(() => {
+          // To terminate the process of increasing the player's position state.
+          clearInterval(timerId);
+          let appliedSnakeOrLadderPos = applySnakeOrLadder(newPlayerPos);
+
           setTimeout(() => {
             // Set this Timeout to touch the last square before applying snake or ladder on the current position.
-            dispatch({ type: "roll", payload: appliedSnakeOrLadderOnPos });
+            dispatch({ type: "roll", payload: appliedSnakeOrLadderPos });
             dispatch({ type: "changeTurn", payload: newPlayerPos });
             dispatch({ type: "switchButtonAbility" });
           }, 500);
