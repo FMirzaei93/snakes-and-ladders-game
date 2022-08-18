@@ -1,6 +1,9 @@
 # Snakes & Ladders Game
 This app is the classic Snakes and Ladders board game, built in React.js
 
+![alt text](https://github.com/FMirzaei93/snakes-and-ladders-game/blob/master/src/assets/images/snakes%26ladders.png)
+
+
 ## Snakes & Ladders rules:
 
 ### Setup
