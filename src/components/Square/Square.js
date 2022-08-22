@@ -2,8 +2,23 @@ import snake from "../../assets/images/snake.png";
 import ladder from "../../assets/images/ladder.png";
 import star from "../../assets/images/star.png";
 import "./Square.scss";
-import redPiece from "../../assets/images/red-piece.png";
-import bluePiece from "../../assets/images/blue-piece.png";
+
+// 1.
+/* 
+  const getBackgroundImage = ({ squareNumber, foundSnake, foundLadder }) => {
+    // Your code comes here...
+    // Try to simplify it by using return statement and by not using else :)
+  }
+*/
+
+// 2.
+/*
+  const getSquareStyle = (args) => {
+    const backgroundImage = getBackgroundImage(args)
+
+    return // Your style follows
+  }
+*/
 
 const Square = ({
   squareNumber,
@@ -12,6 +27,7 @@ const Square = ({
   player1Pos,
   player2Pos,
 }) => {
+  // These can be also extracted and the if statement can be simplified a tiny bit. LOOK ABOVE 1.
   // This function determines what the background-image of each square should be; snake, ladder or neither.
   const backgroundImage = () => {
     let backgroundImage;
@@ -21,6 +37,7 @@ const Square = ({
     return backgroundImage;
   };
 
+  // These can be also extracted so it will return you the pure style (memoisation is also an option) LOOK ABOVE 2.
   const squareStyle = {
     backgroundImage: backgroundImage(),
     backgroundPosition: "center",
@@ -30,14 +47,17 @@ const Square = ({
   };
 
   return (
-    <div className='square' style={squareStyle}>
-      <p className='square-number'>{squareNumber}</p>
+    <div className="square" style={squareStyle}>
+      <p className="square-number">{squareNumber}</p>
+      {/* I would still use ternary operator here */}
+      {/* (I used it even before I read the article just because I ran into some issues) */}
+      {/* https://kentcdodds.com/blog/use-ternaries-rather-than-and-and-in-jsx */}
       {squareNumber === player1Pos && (
-        <img src={redPiece} className='player redPiece' alt='player1' />
+        <img src={redPiece} className="player redPiece" alt="player1" />
       )}
 
       {squareNumber === player2Pos && (
-        <img src={bluePiece} className='player bluePiece' alt='player2' />
+        <img src={bluePiece} className="player bluePiece" alt="player2" />
       )}
     </div>
   );
