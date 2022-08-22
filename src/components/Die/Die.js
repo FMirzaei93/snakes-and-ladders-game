@@ -7,7 +7,30 @@ import die6 from "../../assets/images/die6.png";
 import React from "react";
 import "./Die.scss";
 
+// 1.
+/*
+  const getDiceStyle = (die: number) => {
+    // Arbitrary values for the die style so we won't repeat it
+    const baseDieStyle = {
+      backgroundPosition: "center",
+      backgroundSize: "cover",
+      backgroundRepeat: "no-repeat",
+    }
+
+    switch (die) {
+      case 1:
+        return {
+          ...baseDieStyle,
+          backgroundImage: "url(" + die1 + ")",
+        }
+        // or
+        // return Object.assign(baseDieStyle, { backgroundImage: "url(" + die1 + ")" })
+    }
+  }
+  */
+
 const Die = ({ die }) => {
+  // You could extract these code bits and have a function which returns the style. LOOK ABOVE 1.
   const dieImg = React.useMemo(() => {
     switch (die) {
       case 1:
@@ -40,7 +63,7 @@ const Die = ({ die }) => {
     backgroundRepeat: "no-repeat",
   };
 
-  return <div className='die-face' style={style}></div>;
+  return <div className="die-face" style={style}></div>;
 };
 
 export default Die;
