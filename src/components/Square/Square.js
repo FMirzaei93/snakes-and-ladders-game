@@ -1,6 +1,4 @@
-import snake from "../../assets/images/snake.png";
-import ladder from "../../assets/images/ladder.png";
-import star from "../../assets/images/star.png";
+import { BluePiece, Snake, Ladder, Star, RedPiece } from "../../assets/images";
 import "./Square.scss";
 
 // 1.
@@ -31,9 +29,9 @@ const Square = ({
   // This function determines what the background-image of each square should be; snake, ladder or neither.
   const backgroundImage = () => {
     let backgroundImage;
-    if (squareNumber === 100) backgroundImage = `url("${star}")`;
-    if (foundSnake !== undefined) backgroundImage = `url("${snake}")`;
-    else if (foundLadder !== undefined) backgroundImage = `url("${ladder}")`;
+    if (squareNumber === 100) backgroundImage = `url("${Star}")`;
+    if (foundSnake !== undefined) backgroundImage = `url("${Snake}")`;
+    else if (foundLadder !== undefined) backgroundImage = `url("${Ladder}")`;
     return backgroundImage;
   };
 
@@ -53,11 +51,11 @@ const Square = ({
       {/* (I used it even before I read the article just because I ran into some issues) */}
       {/* https://kentcdodds.com/blog/use-ternaries-rather-than-and-and-in-jsx */}
       {squareNumber === player1Pos && (
-        <img src={redPiece} className="player redPiece" alt="player1" />
+        <img src={RedPiece} className="player redPiece" alt="player1" />
       )}
 
       {squareNumber === player2Pos && (
-        <img src={bluePiece} className="player bluePiece" alt="player2" />
+        <img src={BluePiece} className="player bluePiece" alt="player2" />
       )}
     </div>
   );
