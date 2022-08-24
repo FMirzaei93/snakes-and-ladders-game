@@ -112,12 +112,12 @@ const Board = () => {
           clearInterval(timerId);
           let appliedSnakeOrLadderPos = applySnakeOrLadder(newPlayerPos);
 
-          setTimeout(() => {
-            // Set this Timeout to touch the last square before applying snake or ladder on the current position.
-            dispatch({ type: "roll", payload: appliedSnakeOrLadderPos });
-            dispatch({ type: "changeTurn", payload: newPlayerPos });
-            dispatch({ type: "switchButtonAbility" });
-          }, 500);
+          //  setTimeout(() => {
+          // Set this Timeout to touch the last square before applying snake or ladder on the current position.
+          dispatch({ type: "roll", payload: appliedSnakeOrLadderPos });
+          dispatch({ type: "changeTurn", payload: newPlayerPos });
+          dispatch({ type: "switchButtonAbility" });
+          //  }, 500);
         }, randomNum * 500);
       }
     } else {
