@@ -116,8 +116,6 @@ const Board = () => {
 
     if (playerStartPermission) {
       if (newPlayerPos <= 100) {
-        dispatch({ type: "switchButtonAbility" });
-
         let timerId = setInterval(() => {
           dispatch({ type: "increment" });
         }, 400);
@@ -128,22 +126,21 @@ const Board = () => {
           let appliedSnakeOrLadderPos = applySnakeOrLadder(newPlayerPos);
 
           //******************************************* QUESTION ********************************************
-          //I have set this second Timeout inside the first one to make the player stop for a little time in the cell that's causing snake or ladder effect(before applying snake or ladder),
+          //I have set this second Timeout inside the first one to make the player stop for a little while in the cell that's causing snake or ladder effect(before applying snake or ladder),
           //to avoid moving quickly from that cell to the destination of the snake or ladder. Actualy I want the person who's playing, see the cell that caused the snake or ladder and then move on to the destination.
           //But this approach makes a little lag in moving to the last cell. Do you have any better idea?
 
           //setTimeout(() => {
           dispatch({ type: "setNewPos", payload: appliedSnakeOrLadderPos });
           dispatch({ type: "changeTurn", payload: newPlayerPos });
-          dispatch({ type: "switchButtonAbility" });
           //}, 400);
         }, randomNum * 400);
-      }
+      } else dispatch({ type: "changeTurn", payload: -1 });
     } else {
       if (randomNum === 6) {
         dispatch({ type: "givePermission" });
       }
-      dispatch({ type: "changeTurn", payload: newPlayerPos });
+      dispatch({ type: "changeTurn", payload: -1 });
     }
   };
 

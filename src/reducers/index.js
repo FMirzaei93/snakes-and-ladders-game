@@ -22,6 +22,7 @@ const reducer = (state, action) => {
         die: action.payload,
         snake: null,
         ladder: null,
+        buttonAbility: !state.buttonAbility,
       };
 
     case "givePermission":
@@ -53,6 +54,7 @@ const reducer = (state, action) => {
       return {
         ...state,
         turn: action.payload !== 100 ? changeTurn(state.turn, 2) : state.turn,
+        buttonAbility: !state.buttonAbility,
       };
 
     case "gameOver":
@@ -76,11 +78,11 @@ const reducer = (state, action) => {
     case "initiate":
       return initialStates;
 
-    case "switchButtonAbility":
-      return {
-        ...state,
-        buttonAbility: !state.buttonAbility,
-      };
+    // case "switchButtonAbility":
+    //   return {
+    //     ...state,
+    //     buttonAbility: !state.buttonAbility,
+    //   };
 
     default:
       return state;
