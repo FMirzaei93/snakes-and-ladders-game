@@ -1,6 +1,7 @@
-import { BluePiece, Snake, Ladder, Star, RedPiece } from "../../assets/images";
+import React from "react";
+import images from "../../assets/images";
 import "./Square.scss";
-
+const { Star, Snake, Ladder, RedPiece, BluePiece } = images;
 // 1.
 /* 
   const getBackgroundImage = ({ squareNumber, foundSnake, foundLadder }) => {
@@ -26,36 +27,41 @@ const Square = ({
   player2Pos,
 }) => {
   // These can be also extracted and the if statement can be simplified a tiny bit. LOOK ABOVE 1.
-  // This function determines what the background-image of each square should be; snake, ladder or neither.
-  const backgroundImage = () => {
-    let backgroundImage;
-    if (squareNumber === 100) backgroundImage = `url("${Star}")`;
-    if (foundSnake !== undefined) backgroundImage = `url("${Snake}")`;
-    else if (foundLadder !== undefined) backgroundImage = `url("${Ladder}")`;
-    return backgroundImage;
-  };
+  //Done :)
+  const getBackgroundImage = React.useMemo(() => {
+    if (squareNumber === 100) return `url("${Star}")`;
+    if (foundSnake !== undefined) return `url("${Snake}")`;
+    if (foundLadder !== undefined) return `url("${Ladder}")`;
+  }, [squareNumber, foundSnake, foundLadder]);
 
   // These can be also extracted so it will return you the pure style (memoisation is also an option) LOOK ABOVE 2.
-  const squareStyle = {
-    backgroundImage: backgroundImage(),
-    backgroundPosition: "center",
-    backgroundSize: "cover",
-    backgroundRepeat: "no-repeat",
-    backgroundColor: squareNumber % 2 !== 0 && "rgb(255, 216, 144)",
-  };
+  //Done
+  //******************************************* QUESTION ********************************************
+  //Do you think that'd be a good idea to pass "squareNumber, foundSnake, foundLadder" as the arguments to both functions?(as you've mentioned above)
+  // I think it might be useless and just make the functions crowded. Please let me know if you think the opposite.
+
+  const getSquareStyle = React.useMemo(() => {
+    return {
+      backgroundImage: getBackgroundImage,
+      backgroundPosition: "center",
+      backgroundSize: "cover",
+      backgroundRepeat: "no-repeat",
+      backgroundColor: squareNumber % 2 !== 0 && "rgb(255, 216, 144)",
+    };
+  }, [squareNumber, getBackgroundImage]);
 
   return (
-    <div className="square" style={squareStyle}>
-      <p className="square-number">{squareNumber}</p>
-      {/* I would still use ternary operator here */}
-      {/* (I used it even before I read the article just because I ran into some issues) */}
-      {/* https://kentcdodds.com/blog/use-ternaries-rather-than-and-and-in-jsx */}
-      {squareNumber === player1Pos && (
-        <img src={RedPiece} className="player redPiece" alt="player1" />
-      )}
+    <div className='square' style={getSquareStyle}>
+      <p className='square-number'>{squareNumber}</p>
+      {/* I would still use ternary operator here 
+      //Done:) 
+      */}
+      {squareNumber === player1Pos ? (
+        <img src={RedPiece} className='player redPiece' alt='player1' />
+      ) : null}
 
       {squareNumber === player2Pos && (
-        <img src={BluePiece} className="player bluePiece" alt="player2" />
+        <img src={BluePiece} className='player bluePiece' alt='player2' />
       )}
     </div>
   );

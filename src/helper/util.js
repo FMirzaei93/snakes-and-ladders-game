@@ -9,3 +9,14 @@ export const changeTurn = (currentTurn, playersNum) => {
   else return 1;
   //1,2,3 ->1
 };
+
+export const createSpiralArray = () => {
+  const flatten = new Array(10).fill(null).flatMap((_, i) => {
+    const subArr = new Array(10).fill(null).map((_, j) => {
+      return i * 10 + j + 1;
+    });
+    return i % 2 === 0 ? subArr.reverse() : subArr;
+  });
+
+  return flatten.reverse();
+};

@@ -1,0 +1,27 @@
+div.players-container {
+  width: max-content;
+  font-size: 1.25rem;
+}
+
+div.players-container .playerInfo {
+  margin-bottom: 1rem;
+  color: rgb(95, 40, 3);
+}
+
+div.bold {
+  font-weight: bold;
+}
+
+img.bullet {
+  width: 0.7rem;
+  height: 0.7rem;
+  margin-right: 0.5rem;
+}
+
+img.visible {
+  visibility: visible;
+}
+
+img.hidden {
+  visibility: hidden;
+}

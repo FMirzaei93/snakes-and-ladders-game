@@ -6,12 +6,9 @@ export const initialStates = {
   turn: 1,
   player1Pos: 0,
   player2Pos: 0,
-  playersNum: 2,
   p1StartPermission: false,
   p2StartPermission: false,
-  isSnake: false,
   snake: null,
-  isLadder: false,
   ladder: null,
   buttonAbility: true,
 };
@@ -19,10 +16,12 @@ export const initialStates = {
 const reducer = (state, action) => {
   switch (action.type) {
     //payload: randomNumber
-    case "updateDie":
+    case "roll":
       return {
         ...state,
         die: action.payload,
+        snake: null,
+        ladder: null,
       };
 
     case "givePermission":
@@ -34,8 +33,8 @@ const reducer = (state, action) => {
         player2Pos: state.turn === 2 ? 1 : state.player2Pos,
       };
 
-    case "roll":
-      //payload: newPlayerPosition
+    case "setNewPos":
+      //payload: newPlayerPosition after applying snake or ladder
       return {
         ...state,
         player1Pos: state.turn === 1 ? action.payload : state.player1Pos,
@@ -53,10 +52,7 @@ const reducer = (state, action) => {
       //payload: newPlayerPosition
       return {
         ...state,
-        turn:
-          action.payload !== 100
-            ? changeTurn(state.turn, state.playersNum)
-            : state.turn,
+        turn: action.payload !== 100 ? changeTurn(state.turn, 2) : state.turn,
       };
 
     case "gameOver":
@@ -65,16 +61,16 @@ const reducer = (state, action) => {
         gameOver: true,
       };
     case "snake":
+      //payload: foundSnake
       return {
         ...state,
-        isSnake: action.payload.isSnake,
-        snake: action.payload.snake,
+        snake: action.payload,
       };
     case "ladder":
+      //payload: foundLadder
       return {
         ...state,
-        isLadder: action.payload.isLadder,
-        ladder: action.payload.ladder,
+        ladder: action.payload,
       };
 
     case "initiate":

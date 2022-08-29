@@ -12,6 +12,9 @@ import RedPiece from "./red-piece.png";
 import Snake from "./snake.png";
 import Star from "./star.png";
 
+//**************************** QUESTION *************************
+//Is it considered an object?
+
 const Images = {
   BlueBullet,
   BluePiece,
