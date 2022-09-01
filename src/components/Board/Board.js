@@ -11,28 +11,14 @@ import Die from "../Die/Die";
 // This function searches through the snakes list to check if it contains a specific square number, if so, it returns the information of that snake.
 const foundSnake = (squareNumber) => {
   const snakes = data.snakes;
-  let result = undefined;
-
-  // I would re-write it in a functional way, using array functions :)
-  //******************************************* QUESTION ********************************************
-  //I'm not sure what you meant by "array functions", but if you mean using .fill().map(), I didn't use it.
-  //I've heard that as the map() function creates another array with the same size, we ends up having 2 arrays in the memory which
-  //is not a good idea for the purpose of optimization. Please let me know about 1.what you meant and 2.if I'm wrong. Thanks:)
-
-  snakes.forEach((element) => {
-    if (element.source === squareNumber) result = element;
-  });
+  const result = snakes.find((snake) => snake.source === squareNumber);
   return result;
 };
 
 // This function searches through the ladders list to check if it contains a specific square number, if so, it returns the information of that ladder.
 const foundLadder = (squareNumber) => {
   const ladders = data.ladders;
-
-  let result = undefined;
-  ladders.forEach((element) => {
-    if (element.source === squareNumber) result = element;
-  });
+  const result = ladders.find((ladder) => ladder.source === squareNumber);
   return result;
 };
 
