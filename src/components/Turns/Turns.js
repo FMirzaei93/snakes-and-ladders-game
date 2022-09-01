@@ -1,7 +1,8 @@
 import classNames from "classnames";
-import redBullet from "../../assets/images/red-bullet.png";
-import blueBullet from "../../assets/images/blue-bullet.png";
 import "./Turns.scss";
+import images from "../../assets/images";
+
+const { RedBullet, BlueBullet } = images;
 
 const Turns = ({ turn, player1Pos, player2Pos }) => {
   // This function will create the appropriate classnames for the bullets sitting next to each player's name.
@@ -24,7 +25,7 @@ const Turns = ({ turn, player1Pos, player2Pos }) => {
   return (
     <div className='players-container'>
       <div className={playerInfoClassName(1)}>
-        <img className={bulletClassName(1)} src={redBullet} alt='red bullet' />
+        <img className={bulletClassName(1)} src={RedBullet} alt='red bullet' />
 
         <span>Player1: </span>
         <span>
@@ -34,7 +35,7 @@ const Turns = ({ turn, player1Pos, player2Pos }) => {
       <div className={playerInfoClassName(2)}>
         <img
           className={bulletClassName(2)}
-          src={blueBullet}
+          src={BlueBullet}
           alt='blue bullet'
         />
         <span>Player2: </span>
