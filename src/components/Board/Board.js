@@ -39,11 +39,6 @@ const Board = () => {
     dispatch,
   ] = React.useReducer(reducer, initialStates);
 
-  // I believe this should be in a useEffect since it is actually a side effect :)
-  //Done:)
-  //******************************************* QUESTION ********************************************
-  //Why is this considered a side effect? because the functionality depends on these two dependencies? or there's another reason?
-
   // Checking if any of the players reaches 100, to announce the game finished.
   React.useEffect(() => {
     if (!gameOver && (player1Pos === 100 || player2Pos === 100)) {
@@ -52,25 +47,18 @@ const Board = () => {
   }, [player1Pos, player2Pos, gameOver]);
 
   //This function checks if the current player's position is considered a snake/ladder, if so, the position will be updated with the defined destination of that snake/ladder,
-  //Then, the snake/ladder state gets updated.
+  //also the snake/ladder state gets updated.
   const applySnakeOrLadder = (currentPlayerPos) => {
-    // foundSnake(currentPlayerPos) is being called multiple times,It would be worth saving it into a variable and re-use it :)
-    //Done:)
     const foundSnakeItem = foundSnake(currentPlayerPos);
     const foundLadderItem = foundLadder(currentPlayerPos);
     if (foundSnakeItem !== undefined) {
-      // I would also add that I think you can simplify most of your dispatch methods,so they only take in the necessary information as a payload :)
-      // For instance: "snake" should only take in 1 argument :)
-      //Done:)
       dispatch({ type: "snake", payload: foundSnakeItem });
-      currentPlayerPos = foundSnakeItem.dest;
-      // Similar comments to this part of the function :)
-      //Done:)
-    } else if (foundLadderItem !== undefined) {
-      dispatch({ type: "ladder", payload: foundLadderItem });
-      currentPlayerPos = foundLadderItem.dest;
+      return foundSnakeItem.dest;
     }
-
+    if (foundLadderItem !== undefined) {
+      dispatch({ type: "ladder", payload: foundLadderItem });
+      return foundLadderItem.dest;
+    }
     return currentPlayerPos;
   };
 
@@ -163,10 +151,6 @@ const Board = () => {
     return squaresArray;
   }, [player1Pos, player2Pos]);
 
-  // Your code is super nice, clean an easy to read!
-  // I would still consider extracting some of these components into their own file :)
-  //******************************************* QUESTION ********************************************
-  //I created a respective Component for Turns, but I'm not sure if I still need to separate the different sections into components?
   return (
     <div className='container'>
       {gameOver && (
