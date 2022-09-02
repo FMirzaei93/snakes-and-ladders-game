@@ -123,14 +123,6 @@ const Board = () => {
     dispatch({ type: "initiate" });
   };
 
-  // This function will create a spiral array of 100 elements. (Thanks to my friend Bence🐍)
-  // This could be extracted as a util function :)
-  // Done :)
-
-  // I would use a more functional approach, and since this will be re-created in each render,
-  // you might want to consider memoising this value :)
-  //Done :)
-
   // An array of 100 squares that determines if each square is a snake or ladder, and if any player is located there.
   const createSquareArray = React.useCallback(() => {
     const spiralArray = createSpiralArray();
