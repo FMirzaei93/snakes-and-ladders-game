@@ -1,40 +1,24 @@
 import "./Board.scss";
 import Square from "../Square/Square";
+import Turns from "../Turns/Turns";
 import reducer, { initialStates } from "../../reducers";
 import React from "react";
-import redBullet from "../../assets/images/red-bullet.png";
-import blueBullet from "../../assets/images/blue-bullet.png";
-import classNames from "classnames";
 import Confetti from "react-confetti";
 import data from "../../assets/data.json";
-import { createRandomNumber } from "../../helper/util";
+import { createRandomNumber, createSpiralArray } from "../../helper/util";
 import Die from "../Die/Die";
 
 // This function searches through the snakes list to check if it contains a specific square number, if so, it returns the information of that snake.
 const foundSnake = (squareNumber) => {
   const snakes = data.snakes;
-
-  let result = undefined;
-  for (let i = 0; i < snakes.length; i++) {
-    if (snakes[i].source === squareNumber) {
-      result = snakes[i];
-      break;
-    }
-  }
+  const result = snakes.find((snake) => snake.source === squareNumber);
   return result;
 };
 
 // This function searches through the ladders list to check if it contains a specific square number, if so, it returns the information of that ladder.
 const foundLadder = (squareNumber) => {
   const ladders = data.ladders;
-
-  let result = undefined;
-  for (let i = 0; i < ladders.length; i++) {
-    if (ladders[i].source === squareNumber) {
-      result = ladders[i];
-      break;
-    }
-  }
+  const result = ladders.find((ladder) => ladder.source === squareNumber);
   return result;
 };
 
@@ -48,9 +32,7 @@ const Board = () => {
       player2Pos,
       p1StartPermission,
       p2StartPermission,
-      isSnake,
       snake,
-      isLadder,
       ladder,
       buttonAbility,
     },
@@ -58,34 +40,26 @@ const Board = () => {
   ] = React.useReducer(reducer, initialStates);
 
   // Checking if any of the players reaches 100, to announce the game finished.
-  if (!gameOver && (player1Pos === 100 || player2Pos === 100)) {
-    dispatch({ type: "gameOver" });
-  }
-
-  // This function checks if the current player's position is considered a snake/ladder, if so, the position will be updated with the defined destination of that snake/ladder,
-  //Then, the snake/ladder state gets updated.
-  const applySnakeOrLadder = (currentPlayerPos) => {
-    if (foundSnake(currentPlayerPos) !== undefined) {
-      dispatch({
-        type: "snake",
-        payload: { isSnake: true, snake: foundSnake(currentPlayerPos) },
-      });
-      currentPlayerPos = foundSnake(currentPlayerPos).dest;
-    } else if (foundLadder(currentPlayerPos) !== undefined) {
-      dispatch({
-        type: "ladder",
-        payload: { isLadder: true, ladder: foundLadder(currentPlayerPos) },
-      });
-      currentPlayerPos = foundLadder(currentPlayerPos).dest;
+  React.useEffect(() => {
+    if (!gameOver && (player1Pos === 100 || player2Pos === 100)) {
+      dispatch({ type: "gameOver" });
     }
+  }, [player1Pos, player2Pos, gameOver]);
 
+  //This function checks if the current player's position is considered a snake/ladder, if so, the position will be updated with the defined destination of that snake/ladder,
+  //also the snake/ladder state gets updated.
+  const applySnakeOrLadder = (currentPlayerPos) => {
+    const foundSnakeItem = foundSnake(currentPlayerPos);
+    const foundLadderItem = foundLadder(currentPlayerPos);
+    if (foundSnakeItem !== undefined) {
+      dispatch({ type: "snake", payload: foundSnakeItem });
+      return foundSnakeItem.dest;
+    }
+    if (foundLadderItem !== undefined) {
+      dispatch({ type: "ladder", payload: foundLadderItem });
+      return foundLadderItem.dest;
+    }
     return currentPlayerPos;
-  };
-
-  // This function simply reset the state of snake and ladder to false after each roll.
-  const resetSnakeAndLadderStates = () => {
-    if (snake) dispatch({ type: "snake", payload: { isSnake: false } });
-    if (ladder) dispatch({ type: "ladder", payload: { isLadder: false } });
   };
 
   // What this function does:
@@ -95,48 +69,52 @@ const Board = () => {
   //4. Then updates the player's position and changes the turn.
   //5. If the player is not allowed so far to start the game, first, it checks if they just got a 6, and then update the player's permission; and then it changes the turn anyway.
 
+  const rollClick = () => {
+    // Hmmm this action could exist without a payload ;)
+    //******************************************* QUESTION ********************************************
+    //I'm using the same random number as an argument for the setPlayerNewPos() method. So I cannot generate the random number in the reducer file.
+
+    let randomNum = createRandomNumber();
+    dispatch({ type: "roll", payload: randomNum });
+
+    // Then this bit could probabyl go into a useEffect:
+    if (turn === 1) {
+      setPlayerNewPos(p1StartPermission, player1Pos, randomNum);
+    } else if (turn === 2) {
+      setPlayerNewPos(p2StartPermission, player2Pos, randomNum);
+    }
+  };
+
   const setPlayerNewPos = (playerStartPermission, playerPos, randomNum) => {
     let newPlayerPos = playerPos + randomNum;
 
     if (playerStartPermission) {
       if (newPlayerPos <= 100) {
-        dispatch({ type: "switchButtonAbility" });
-
         let timerId = setInterval(() => {
           dispatch({ type: "increment" });
-          console.log("each interval");
-        }, 500);
+        }, 400);
 
         setTimeout(() => {
           // To terminate the process of increasing the player's position state.
           clearInterval(timerId);
           let appliedSnakeOrLadderPos = applySnakeOrLadder(newPlayerPos);
 
-          //  setTimeout(() => {
-          // Set this Timeout to touch the last square before applying snake or ladder on the current position.
-          dispatch({ type: "roll", payload: appliedSnakeOrLadderPos });
+          //******************************************* QUESTION ********************************************
+          //I have set this second Timeout inside the first one to make the player stop for a little while in the cell that's causing snake or ladder effect(before applying snake or ladder),
+          //to avoid moving quickly from that cell to the destination of the snake or ladder. Actualy I want the person who's playing, see the cell that caused the snake or ladder and then move on to the destination.
+          //But this approach makes a little lag in moving to the last cell. Do you have any better idea?
+
+          //setTimeout(() => {
+          dispatch({ type: "setNewPos", payload: appliedSnakeOrLadderPos });
           dispatch({ type: "changeTurn", payload: newPlayerPos });
-          dispatch({ type: "switchButtonAbility" });
-          //  }, 500);
-        }, randomNum * 500);
-      }
+          //}, 400);
+        }, randomNum * 400);
+      } else dispatch({ type: "changeTurn", payload: -1 });
     } else {
       if (randomNum === 6) {
         dispatch({ type: "givePermission" });
       }
-      dispatch({ type: "changeTurn", payload: newPlayerPos });
-    }
-  };
-
-  const rollClick = () => {
-    let randomNum = createRandomNumber();
-    dispatch({ type: "updateDie", payload: randomNum });
-    resetSnakeAndLadderStates();
-
-    if (turn === 1) {
-      setPlayerNewPos(p1StartPermission, player1Pos, randomNum);
-    } else if (turn === 2) {
-      setPlayerNewPos(p2StartPermission, player2Pos, randomNum);
+      dispatch({ type: "changeTurn", payload: -1 });
     }
   };
 
@@ -145,52 +123,25 @@ const Board = () => {
     dispatch({ type: "initiate" });
   };
 
-  // This function will create the appropriate classnames for the bullets sitting next to each player's name.
-  const bulletClassName = (turnNum) => {
-    return classNames({
-      bullet: true,
-      visible: turn === turnNum,
-      hidden: turn !== turnNum,
-    });
-  };
-
-  // This function will create the appropriate classnames for the player's information div.
-  const playerInfoClassName = (turnNum) => {
-    return classNames({
-      playerInfo: true,
-      bold: turn === turnNum,
-    });
-  };
-
-  // This function will create a spiral array of 100 elements. (Thanks to my friend Bence🐍)
-  const createSpiralArray = () => {
-    const flatten = new Array(10).fill(null).flatMap((_, i) => {
-      const subArr = new Array(10).fill(null).map((_, j) => {
-        return i * 10 + j + 1;
-      });
-      return i % 2 === 0 ? subArr.reverse() : subArr;
-    });
-
-    return flatten.reverse();
-  };
-
   // An array of 100 squares that determines if each square is a snake or ladder, and if any player is located there.
-  const squaresArray = [];
-  const spiralArray = createSpiralArray();
+  const createSquareArray = React.useCallback(() => {
+    const spiralArray = createSpiralArray();
 
-  for (let i = 0; i < spiralArray.length; i++) {
-    let j = spiralArray[i];
-    squaresArray.push(
-      <Square
-        key={j}
-        squareNumber={j}
-        foundSnake={foundSnake(j)}
-        foundLadder={foundLadder(j)}
-        player1Pos={player1Pos}
-        player2Pos={player2Pos}
-      ></Square>
-    );
-  }
+    const squaresArray = spiralArray.map((item, i) => {
+      return (
+        <Square
+          key={i}
+          squareNumber={item}
+          foundSnake={foundSnake(item)}
+          foundLadder={foundLadder(item)}
+          player1Pos={player1Pos}
+          player2Pos={player2Pos}
+        ></Square>
+      );
+    });
+
+    return squaresArray;
+  }, [player1Pos, player2Pos]);
 
   return (
     <div className='container'>
@@ -205,32 +156,9 @@ const Board = () => {
       </p>
 
       <div className='main-content'>
+        {/* -------------------------- Left Content ---------------------- */}
         <div className='left-content'>
-          <div className='players-container'>
-            <div className={playerInfoClassName(1)}>
-              <img
-                className={bulletClassName(1)}
-                src={redBullet}
-                alt='red bullet'
-              />
-
-              <span>Player1: </span>
-              <span>
-                {player1Pos === 0 ? "has not entered the game" : player1Pos}
-              </span>
-            </div>
-            <div className={playerInfoClassName(2)}>
-              <img
-                className={bulletClassName(2)}
-                src={blueBullet}
-                alt='blue bullet'
-              />
-              <span>Player2: </span>
-              <span>
-                {player2Pos === 0 ? "has not entered the game" : player2Pos}
-              </span>
-            </div>
-          </div>
+          <Turns turn={turn} player1Pos={player1Pos} player2Pos={player2Pos} />
 
           {!p1StartPermission && turn === 1 && (
             <p className='permission'>
@@ -243,10 +171,13 @@ const Board = () => {
             </p>
           )}
         </div>
+        {/* -------------------------- Mid Content ---------------------- */}
 
         <div className='mid-content'>
-          <div className='square-container'>{squaresArray}</div>
+          <div className='square-container'>{createSquareArray()}</div>
         </div>
+
+        {/* -------------------------- Right Content ---------------------- */}
 
         <div className='right-content'>
           <button
@@ -261,7 +192,7 @@ const Board = () => {
 
           <Die die={die} />
 
-          {isSnake && (
+          {snake && (
             <>
               <p className='snake-ladder-message'>Oops! That was a snake!🐍</p>
               <p className='snake-ladder-info'>
@@ -269,7 +200,7 @@ const Board = () => {
               </p>
             </>
           )}
-          {isLadder && (
+          {ladder && (
             <>
               <p className='snake-ladder-message'>
                 Great! That was a ladder!🪜
