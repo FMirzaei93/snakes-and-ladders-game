@@ -70,14 +70,9 @@ const Board = () => {
   //5. If the player is not allowed so far to start the game, first, it checks if they just got a 6, and then update the player's permission; and then it changes the turn anyway.
 
   const rollClick = () => {
-    // Hmmm this action could exist without a payload ;)
-    //******************************************* QUESTION ********************************************
-    //I'm using the same random number as an argument for the setPlayerNewPos() method. So I cannot generate the random number in the reducer file.
-
     let randomNum = createRandomNumber();
     dispatch({ type: "roll", payload: randomNum });
 
-    // Then this bit could probabyl go into a useEffect:
     if (turn === 1) {
       setPlayerNewPos(p1StartPermission, player1Pos, randomNum);
     } else if (turn === 2) {
@@ -98,11 +93,6 @@ const Board = () => {
           // To terminate the process of increasing the player's position state.
           clearInterval(timerId);
           let appliedSnakeOrLadderPos = applySnakeOrLadder(newPlayerPos);
-
-          //******************************************* QUESTION ********************************************
-          //I have set this second Timeout inside the first one to make the player stop for a little while in the cell that's causing snake or ladder effect(before applying snake or ladder),
-          //to avoid moving quickly from that cell to the destination of the snake or ladder. Actualy I want the person who's playing, see the cell that caused the snake or ladder and then move on to the destination.
-          //But this approach makes a little lag in moving to the last cell. Do you have any better idea?
 
           //setTimeout(() => {
           dispatch({ type: "setNewPos", payload: appliedSnakeOrLadderPos });

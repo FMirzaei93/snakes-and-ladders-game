@@ -78,12 +78,6 @@ const reducer = (state, action) => {
     case "initiate":
       return initialStates;
 
-    // case "switchButtonAbility":
-    //   return {
-    //     ...state,
-    //     buttonAbility: !state.buttonAbility,
-    //   };
-
     default:
       return state;
   }
