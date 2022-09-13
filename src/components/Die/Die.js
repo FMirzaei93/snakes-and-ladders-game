@@ -4,6 +4,21 @@ import "./Die.scss";
 
 const { Die1, Die2, Die3, Die4, Die5, Die6 } = images;
 
+// I had a think of a way how we can simplify this code even more
+// You can use require to dynamically import the images based on the die number
+// const getDiceStyle = (dieNum) => {
+//   // Your one line would come here...
+
+//   return {
+//     backgroundImage: "url(" + img + ")",
+//     backgroundPosition: "center",
+//     backgroundSize: "cover",
+//     backgroundRepeat: "no-repeat",
+//   };
+// };
+
+// This will make your component to shrink from 46 lines to 4-5 lines
+
 const Die = ({ die }) => {
   const getDiceStyle = React.useMemo(() => {
     const baseDieStyle = {
