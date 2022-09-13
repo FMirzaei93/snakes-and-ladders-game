@@ -4,24 +4,38 @@ import images from "../../assets/images";
 
 const { RedBullet, BlueBullet } = images;
 
+// You could make these util functions pure functions
+// and move these functions outside of the component
+// or into a util
+
+// This function will create the appropriate classnames for the bullets sitting next to each player's name.
+const bulletClassName = (turn, turnNum) => {
+  return classNames({
+    bullet: true,
+    visible: turn === turnNum,
+    hidden: turn !== turnNum,
+  });
+};
+
+// This function will create the appropriate classnames for the player's information div.
+const playerInfoClassName = (turn, turnNum) => {
+  return classNames({
+    playerInfo: true,
+    bold: turn === turnNum,
+  });
+};
+
+// You could also compose them into 1 function
+// which will return you a tuple of classes:
+//
+// const getClasses = (turn, turnNum) => {
+//   const bulletClass = bulletClassName(turn, turnNum);
+//   const playerClass = playerInfoClassName(turn, turnNum);
+
+//   return [bulletClass, playerClass];
+// };
+
 const Turns = ({ turn, player1Pos, player2Pos }) => {
-  // This function will create the appropriate classnames for the bullets sitting next to each player's name.
-  const bulletClassName = (turnNum) => {
-    return classNames({
-      bullet: true,
-      visible: turn === turnNum,
-      hidden: turn !== turnNum,
-    });
-  };
-
-  // This function will create the appropriate classnames for the player's information div.
-  const playerInfoClassName = (turnNum) => {
-    return classNames({
-      playerInfo: true,
-      bold: turn === turnNum,
-    });
-  };
-
   return (
     <div className='players-container'>
       <div className={playerInfoClassName(1)}>
